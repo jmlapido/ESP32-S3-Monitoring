@@ -1,0 +1,27 @@
+menu "MonDash Configuration"
+
+    config MONDASH_WIFI_SSID
+        string "WiFi SSID"
+        default "MyNetwork"
+        help
+            WiFi network name to connect to.
+
+    config MONDASH_WIFI_PASSWORD
+        string "WiFi Password"
+        default "password"
+        help
+            WiFi network password.
+
+    config MONDASH_SERVER_URI
+        string "MonDash Server WebSocket URI"
+        default "ws://100.100.100.100:8000/ws/esp"
+        help
+            WebSocket URI of the MonDash backend server.
+
+    config MONDASH_MJPEG_BASE_URI
+        string "MJPEG Stream Base URI"
+        default "http://100.100.100.100:8000/api/cameras"
+        help
+            Base URI for MJPEG camera streams. Camera ID is appended.
+
+endmenu

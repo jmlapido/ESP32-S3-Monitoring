@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+*.db
+*.db-journal
+*.db-wal
+.env
+
+# Node
+node_modules/
+web/build/
+web/.svelte-kit/
+
+# PlatformIO
+firmware/.pio/
+firmware/.vscode/
+firmware/managed_components/
+firmware/sdkconfig
+firmware/sdkconfig.old
+firmware/dependencies.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build output
+server/static/*
+!server/static/.gitkeep

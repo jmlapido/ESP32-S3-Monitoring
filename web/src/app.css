@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+:root {
+	--bg-primary: #0D1117;
+	--bg-surface: #161B22;
+	--bg-elevated: #1C2128;
+	--accent-blue: #58A6FF;
+	--accent-green: #3FB950;
+	--accent-red: #F85149;
+	--accent-amber: #D29922;
+	--text-primary: #E6EDF3;
+	--text-secondary: #8B949E;
+	--border: #30363D;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+::-webkit-scrollbar-track {
+	background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+	background: var(--border);
+	border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--text-secondary);
+}
+
+/* Base */
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+	background: var(--bg-primary);
+	color: var(--text-primary);
+}
+
+/* Pulsing animation for offline status */
+@keyframes pulse-dot {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.4; }
+}
+.pulse-offline {
+	animation: pulse-dot 1.5s ease-in-out infinite;
+}

@@ -1,0 +1,49 @@
+set(SOURCES
+    "main.c"
+    "hal/display_hal.c"
+    "hal/touch_hal.c"
+    "hal/led_hal.c"
+    "net/wifi_manager.c"
+    "net/ws_client.c"
+    "data/data_store.c"
+    "data/json_parser.c"
+    "ui/ui_theme.c"
+    "ui/ui_manager.c"
+    "ui/pages/page_overview.c"
+    "ui/pages/page_websites.c"
+    "ui/pages/page_network.c"
+    "ui/pages/page_cameras.c"
+    "ui/pages/page_chart.c"
+    "ui/widgets/status_card.c"
+    "ui/widgets/status_row.c"
+)
+
+set(INCLUDE_DIRS
+    "."
+    "hal"
+    "net"
+    "data"
+    "ui"
+    "ui/pages"
+    "ui/widgets"
+)
+
+idf_component_register(
+    SRCS ${SOURCES}
+    INCLUDE_DIRS ${INCLUDE_DIRS}
+    REQUIRES
+        lvgl
+        esp_wifi
+        esp_netif
+        esp_event
+        esp_lcd
+        esp_lcd_touch
+        nvs_flash
+        json
+        led_strip
+        driver
+        esp_timer
+        esp_http_client
+    PRIV_REQUIRES
+        esp_websocket_client
+)
