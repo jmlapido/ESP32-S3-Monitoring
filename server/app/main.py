@@ -69,6 +69,11 @@ async def root():
     return RedirectResponse(url="/app/")
 
 
+@app.get("/api")
+async def api_root():
+    return RedirectResponse(url="/docs")
+
+
 @app.get("/health")
 async def health():
     return {"status": "ok", "service": "mondash"}
