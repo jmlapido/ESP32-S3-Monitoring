@@ -30,7 +30,7 @@ static void touch_read_cb(lv_indev_t *indev, lv_indev_data_t *data)
     }
 
     esp_lcd_touch_read_data(s_touch);
-    bool touched = esp_lcd_touch_get_data(s_touch, x, y, strength, &count, 1);
+    bool touched = esp_lcd_touch_get_coordinates(s_touch, x, y, strength, &count, 1);
 
     if (touched && count > 0) {
         data->point.x = x[0];
