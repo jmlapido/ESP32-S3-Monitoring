@@ -85,7 +85,7 @@ static void status_task(void *arg)
             }
 
             /* Simple time display (uptime-based since no NTP yet) */
-            char time_buf[8];
+            char time_buf[16];
             int mins = tick / 60;
             int secs = tick % 60;
             snprintf(time_buf, sizeof(time_buf), "%02d:%02d", mins, secs);

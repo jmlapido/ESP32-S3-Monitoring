@@ -16,8 +16,7 @@ void led_hal_init(void)
     led_strip_config_t strip_cfg = {
         .strip_gpio_num = LED_GPIO,
         .max_leds = LED_COUNT,
-        .led_pixel_format = LED_PIXEL_FORMAT_GRB,
-        .led_model = LED_MODEL_WS2812,
+        .led_model = LED_MODEL_WS2812,  /* WS2812 implies GRB format */
     };
 
     led_strip_rmt_config_t rmt_cfg = {
