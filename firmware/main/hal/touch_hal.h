@@ -2,4 +2,4 @@
 
 #include "lvgl.h"
 
-void touch_hal_init(void);
+void mondash_touch_init(void);

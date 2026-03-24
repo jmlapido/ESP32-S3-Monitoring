@@ -41,7 +41,7 @@ static void touch_read_cb(lv_indev_t *indev, lv_indev_data_t *data)
     }
 }
 
-void touch_hal_init(void)
+void mondash_touch_init(void)
 {
     ESP_LOGI(TAG, "Initializing FT6336G touch");
 

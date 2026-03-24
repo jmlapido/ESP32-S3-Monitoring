@@ -120,7 +120,7 @@ void app_main(void)
 
     /* 4. Display & touch */
     display_hal_init();
-    touch_hal_init();
+    mondash_touch_init();
 
     /* 5. UI theme and layout */
     ui_theme_init();
