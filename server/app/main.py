@@ -54,8 +54,13 @@ app.websocket("/ws/esp")(esp_websocket_endpoint)
 app.websocket("/ws/web")(web_websocket_endpoint)
 
 # Static files for web panel
+# SvelteKit builds assets to /_app/immutable/... (absolute paths)
+# so we must serve both /_app (assets) and /app (html entry)
 static_dir = Path(__file__).parent.parent / "static"
 if static_dir.exists():
+    assets_dir = static_dir / "_app"
+    if assets_dir.exists():
+        app.mount("/_app", StaticFiles(directory=str(assets_dir)), name="sveltekit-assets")
     app.mount("/app", StaticFiles(directory=str(static_dir), html=True), name="web-panel")
 
 
