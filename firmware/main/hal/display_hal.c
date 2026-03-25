@@ -34,6 +34,14 @@ static void flush_cb(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
     int y1 = area->y1;
     int x2 = area->x2;
     int y2 = area->y2;
+
+    /* ILI9341V needs big-endian RGB565 — swap bytes in-place */
+    int pixel_count = (x2 - x1 + 1) * (y2 - y1 + 1);
+    uint16_t *pixels = (uint16_t *)px_map;
+    for (int i = 0; i < pixel_count; i++) {
+        pixels[i] = (pixels[i] >> 8) | (pixels[i] << 8);
+    }
+
     esp_lcd_panel_draw_bitmap(s_panel, x1, y1, x2 + 1, y2 + 1, px_map);
     lv_display_flush_ready(disp);
 }
@@ -89,7 +97,7 @@ void display_hal_init(void)
     ESP_ERROR_CHECK(esp_lcd_panel_init(s_panel));
     ESP_ERROR_CHECK(esp_lcd_panel_invert_color(s_panel, false));
     ESP_ERROR_CHECK(esp_lcd_panel_swap_xy(s_panel, false));
-    ESP_ERROR_CHECK(esp_lcd_panel_mirror(s_panel, false, false));
+    ESP_ERROR_CHECK(esp_lcd_panel_mirror(s_panel, true, false));  /* fix horizontal mirror */
     ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(s_panel, true));
 
     /* LVGL display driver */

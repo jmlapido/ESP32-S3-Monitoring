@@ -109,11 +109,9 @@ static void create_dot_panel(lv_obj_t *parent)
     int total_w = NUM_PAGES * DOT_SIZE + (NUM_PAGES - 1) * DOT_GAP;
 
     s_dot_panel = lv_obj_create(parent);
-    lv_obj_set_size(s_dot_panel, total_w + 16, DOT_SIZE + 10);
-    lv_obj_align(s_dot_panel, LV_ALIGN_BOTTOM_MID, 0, -4);
-    lv_obj_set_style_bg_color(s_dot_panel, lv_color_hex(0x000000), 0);
-    lv_obj_set_style_bg_opa(s_dot_panel, LV_OPA_40, 0);
-    lv_obj_set_style_radius(s_dot_panel, 8, 0);
+    lv_obj_set_size(s_dot_panel, total_w, DOT_SIZE);
+    lv_obj_align(s_dot_panel, LV_ALIGN_BOTTOM_MID, 0, -6);
+    lv_obj_set_style_bg_opa(s_dot_panel, LV_OPA_TRANSP, 0);  /* fully transparent background */
     lv_obj_set_style_border_width(s_dot_panel, 0, 0);
     lv_obj_set_style_pad_all(s_dot_panel, 0, 0);
     lv_obj_clear_flag(s_dot_panel, LV_OBJ_FLAG_SCROLLABLE);
