@@ -24,7 +24,7 @@ class RTSPCollector(BaseCollector):
             # Capture single frame from RTSP
             process = (
                 ffmpeg
-                .input(uri, rtsp_transport="tcp", stimeout="5000000")
+                .input(uri, rtsp_transport="tcp", timeout="10000000")
                 .output("pipe:", vframes=1, format="image2", vcodec="mjpeg", q=5)
                 .overwrite_output()
                 .run_async(pipe_stdout=True, pipe_stderr=True)
@@ -35,10 +35,14 @@ class RTSPCollector(BaseCollector):
             )
 
             if process.returncode != 0 or not stdout:
+                err_text = stderr.decode(errors="ignore")
+                # Skip ffmpeg banner to get to the actual error
+                lines = [l for l in err_text.splitlines() if not l.startswith(("ffmpeg version", "  built", "  config", "  lib", "  Last"))]
+                print(f"[RTSP] ffmpeg failed for {uri}: {chr(10).join(lines[-20:])}", flush=True)
                 return CollectResult(
                     status="offline",
                     value_text="capture_failed",
-                    metadata={"error": stderr.decode(errors="ignore")[:200]},
+                    metadata={"error": chr(10).join(lines[-10:])},
                 )
 
             # Process with Pillow

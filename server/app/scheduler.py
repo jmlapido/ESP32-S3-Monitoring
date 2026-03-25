@@ -27,9 +27,21 @@ COLLECTOR_MAP = {
 }
 
 
-async def _run_monitor(monitor_id: int, monitor_type: str, target: str, config_json: str):
-    """Execute a single monitor check and broadcast results."""
-    config = json.loads(config_json) if config_json else {}
+async def _run_monitor(monitor_id: int):
+    """Execute a single monitor check and broadcast results. Reads config fresh from DB."""
+    async with get_db() as db:
+        cursor = await db.execute(
+            "SELECT type, target, config FROM monitors WHERE id = ? AND enabled = 1",
+            (monitor_id,),
+        )
+        row = await cursor.fetchone()
+    if not row:
+        return
+
+    monitor_type = row["type"]
+    target = row["target"]
+    config = json.loads(row["config"]) if row["config"] else {}
+
     cls = COLLECTOR_MAP.get(monitor_type)
     if not cls:
         return
@@ -82,7 +94,7 @@ async def schedule_all_monitors():
             _run_monitor,
             trigger=IntervalTrigger(seconds=row["poll_interval_sec"]),
             id=job_id,
-            args=[row["id"], row["type"], row["target"], row["config"]],
+            args=[row["id"]],
             replace_existing=True,
             max_instances=1,
         )

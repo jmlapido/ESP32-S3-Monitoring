@@ -15,7 +15,7 @@ def _start_ffmpeg(rtsp_uri: str, width: int = 240, height: int = 180, fps: int =
     cmd = [
         "ffmpeg",
         "-rtsp_transport", "tcp",
-        "-stimeout", "5000000",
+        "-timeout", "10000000",
         "-i", rtsp_uri,
         "-f", "mjpeg",
         "-q:v", "5",
