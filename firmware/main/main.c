@@ -19,7 +19,7 @@ static const char *TAG = "mondash";
 
 #define LVGL_TICK_PERIOD_MS 2
 #define LVGL_TASK_STACK     (8 * 1024)
-#define DATA_TASK_STACK     (4 * 1024)
+#define DATA_TASK_STACK     (6 * 1024)
 
 static SemaphoreHandle_t s_lvgl_mutex = NULL;
 
@@ -70,6 +70,14 @@ static void status_task(void *arg)
     while (1) {
         vTaskDelay(pdMS_TO_TICKS(1000));
         tick++;
+
+        /* Watchdog: force-restart WS client if stuck disconnected */
+        ws_client_watchdog();
+
+        /* Send heartbeat to server every 30 seconds */
+        if (tick % 30 == 0) {
+            ws_client_send_heartbeat();
+        }
 
         /* Update connection status on UI every second */
         if (xSemaphoreTake(s_lvgl_mutex, pdMS_TO_TICKS(50)) == pdTRUE) {

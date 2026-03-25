@@ -14,13 +14,13 @@ menu "MonDash Configuration"
 
     config MONDASH_SERVER_URI
         string "MonDash Server WebSocket URI"
-        default "ws://100.123.83.86:8000/ws/esp"
+        default "ws://192.168.1.24:8000/ws/esp"
         help
             WebSocket URI of the MonDash backend server.
 
     config MONDASH_MJPEG_BASE_URI
         string "MJPEG Stream Base URI"
-        default "http://100.123.83.86:8000/stream"
+        default "http://192.168.1.24:8000/stream"
         help
             Base URI for MJPEG camera streams. Camera ID is appended.
 
